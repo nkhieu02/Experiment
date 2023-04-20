@@ -22,20 +22,6 @@ class KrausLayer(Layer):
         super(KrausLayer, self).build(input_shape) 
 
     def call(self, x):
-        # Kraus layer for q = 1 is Trace Regression
-        # tmp = K.dot(self.Ai[0], x)
-        # tmp = K.permute_dimensions(tmp, [1,0,2])
-        # tmp = tmp * self.Ai[0]
-        # Y0  = tf.reduce_sum(tmp, axis = 2)
-        # acc = [Y0] 
-        # for r in range(1, self.rank):
-        #     tmp = K.dot(self.Ai[r], x)
-        #     tmp = K.permute_dimensions(tmp, [1,0,2])
-        #     tmp = tmp * self.Ai[r]
-        #     Yr  = tf.reduce_sum(tmp, axis = 2)
-        #     acc.append(Yr)
-        # Y = tf.reduce_sum(acc, axis=0)
-        # return Y
         tmp = K.dot(self.Ai[0], x)
         tmp = K.permute_dimensions(tmp, [1,0,2])
         Y0 = K.dot(tmp, tf.transpose(self.Ai[0]))
